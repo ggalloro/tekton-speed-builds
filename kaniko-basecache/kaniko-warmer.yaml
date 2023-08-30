@@ -10,10 +10,10 @@ spec:
            "--image=maven",
            "--image=eclipse-temurin:19-jdk-alpine"]
     volumeMounts:
-      - name: kaniko-cache
+      - name: basecache
         mountPath: /cache
   restartPolicy: Never
   volumes:
-    - name: kaniko-cache
+    - name: basecache
       persistentVolumeClaim:
-              claimName: cache-pvc
+              claimName: basecache-pvc
