@@ -1,6 +1,5 @@
 FROM maven as build
 COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
 RUN mvn dependency:go-offline
 COPY src src
