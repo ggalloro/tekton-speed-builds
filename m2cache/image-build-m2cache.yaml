@@ -41,12 +41,15 @@ spec:
         - --context=$(params.CONTEXT) # The user does not need to care the workspace and the source.
         - --destination=$(params.IMAGE):$(params.commit)
         - --digest-file=$(results.IMAGE_DIGEST.path)
+        - --cache=true
       # kaniko assumes it is running as root, which means this example fails on platforms
       # that default to run containers as random uid (like OpenShift). Adding this securityContext
       # makes it explicit that it needs to run as root.
       securityContext:
         runAsUser: 0
       volumeMounts:
+        - name: basecache
+          mountPath: /cache
         - name: m2-cache
           mountPath: /root/.m2
     - name: write-url
@@ -59,3 +62,6 @@ spec:
     - name: m2-cache
       persistentVolumeClaim:
         claimName: m2cache-pvc
+    - name: basecache
+      persistentVolumeClaim:
+        claimName: basecache-pvc
