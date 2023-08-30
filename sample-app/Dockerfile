@@ -1,6 +1,5 @@
 FROM maven as build
 COPY mvnw .
-COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 RUN mvn package -Dmaven.test.skip=true
